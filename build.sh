@@ -41,7 +41,6 @@ build_v8()
           v8_use_external_startup_data=false \
           is_component_build=false \
           v8_static_library=true \
-          android_ndk_root=\"$ANDROID_NDK_ROOT\" \
           android_ndk_version = \"r16\" \
           android_ndk_major_version = 16 \
           is_clang=true \
