@@ -38,7 +38,6 @@ build_v8()
     v8_enable_disassembler = true \
     v8_enable_object_print = true \
     v8_enable_verify_heap = true \
-    v8_use_snapshot = false \
     v8_enable_i18n_support = false \
     v8_use_external_startup_data = false \
     v8_static_library = true \
