@@ -41,22 +41,21 @@ build_v8()
     v8_enable_i18n_support = false \
     v8_use_external_startup_data = false \
     v8_static_library = true \
+    libcxx_is_shared = true \
+    libcxx_abi_unstable = false \
+    android_ndk_version = \"r16\" \
+    android_ndk_major_version = 16 \
     $ARM_VERSION_CONFIG \
     "
 
     gn gen $OUT_DIR --args="${ARGS}"
     # gn args $OUT_DIR --list
-    ninja -C $OUT_DIR d8 -v # -j1
+    ninja -C $OUT_DIR d8 # -j1
 
     rm -rf $WORK_DIR/$ANDROID_ARCH
     mkdir $WORK_DIR/$ANDROID_ARCH
 
-    $AR rcsD $WORK_DIR/$ANDROID_ARCH/libv8_base.a $OUT_DIR/obj/v8_base_without_compiler/*.o
-    $AR rcsD $WORK_DIR/$ANDROID_ARCH/libv8_compiler.a $OUT_DIR/obj/v8_compiler/*.o
-    $AR rcsD $WORK_DIR/$ANDROID_ARCH/libv8_libbase.a $OUT_DIR/obj/v8_libbase/*.o
-    $AR rcsD $WORK_DIR/$ANDROID_ARCH/libv8_libplatform.a $OUT_DIR/obj/v8_libplatform/*.o
-    $AR rcsD $WORK_DIR/$ANDROID_ARCH/libv8_libsampler.a $OUT_DIR/obj/v8_libsampler/*.o
-    $AR rcsD $WORK_DIR/$ANDROID_ARCH/libv8_snapshot.a $OUT_DIR/obj/v8_snapshot/*.o
+    cp -r $OUT_DIR/obj/*.a $WORK_DIR/$ANDROID_ARCH/
 }
 
 ANDROID_ARCH=armeabi
