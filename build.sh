@@ -1,8 +1,6 @@
 #!/bin/bash
 
-# exit this script if any commmand fails
 set -e
-#  
 
 cd v8
 
@@ -30,23 +28,19 @@ build_v8()
     BIN_DIR=$CLANG_BASE/bin
     AR=$BIN_DIR/llvm-ar
 
-    ARGS="is_debug=false \
-          symbol_level=0 \
-          target_os=\"android\" \
-          target_cpu=\"$TARGET_CPU\" \
-          v8_target_cpu=\"$TARGET_CPU\" \
-          $ARM_VERSION_CONFIG \
-          v8_use_snapshot=false \
-          v8_enable_i18n_support=false \
-          v8_use_external_startup_data=false \
-          is_component_build=false \
-          v8_static_library=true \
-          android_ndk_version = \"r16\" \
-          android_ndk_major_version = 16 \
-          is_clang=true \
-          clang_base_path=\"$CLANG_BASE\" \
-          clang_use_chrome_plugins=false \
-          "
+    ARGS="is_component_build = false \
+    is_debug = false \
+    target_cpu = \"$TARGET_CPU\" \
+    v8_target_cpu = \"$TARGET_CPU\" \
+    target_os = \"android\" \
+    use_goma = false \
+    goma_dir = \"None\" \
+    v8_enable_backtrace = true \
+    v8_enable_disassembler = true \
+    v8_enable_object_print = true \
+    v8_enable_verify_heap = true \
+    $ARM_VERSION_CONFIG \
+    "
 
     gn gen $OUT_DIR --args="${ARGS}"
     # gn args $OUT_DIR --list
