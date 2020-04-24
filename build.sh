@@ -48,9 +48,7 @@ build_v8()
     rm -rf $WORK_DIR/$ANDROID_ARCH
     mkdir $WORK_DIR/$ANDROID_ARCH
 
-    cp $OUT_DIR/obj/libv8_libbase.a $WORK_DIR/$ANDROID_ARCH/libv8_libbase.a
-    cp $OUT_DIR/obj/libv8_libplatform.a $WORK_DIR/$ANDROID_ARCH/libv8_libplatform.a
-
+    $AR rcsD $WORK_DIR/$ANDROID_ARCH/libv8_base.a $OUT_DIR/obj/v8_base_without_compiler/*.o
 }
 
 ANDROID_ARCH=armeabi
