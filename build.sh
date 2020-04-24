@@ -49,6 +49,11 @@ build_v8()
     mkdir $WORK_DIR/$ANDROID_ARCH
 
     $AR rcsD $WORK_DIR/$ANDROID_ARCH/libv8_base.a $OUT_DIR/obj/v8_base_without_compiler/*.o
+    $AR rcsD $WORK_DIR/$ANDROID_ARCH/libv8_compiler.a $OUT_DIR/obj/v8_compiler/*.o
+    $AR rcsD $WORK_DIR/$ANDROID_ARCH/libv8_libbase.a $OUT_DIR/obj/v8_libbase/*.o
+    $AR rcsD $WORK_DIR/$ANDROID_ARCH/libv8_libplatform.a $OUT_DIR/obj/v8_libplatform/*.o
+    $AR rcsD $WORK_DIR/$ANDROID_ARCH/libv8_libsampler.a $OUT_DIR/obj/v8_libsampler/*.o
+    $AR rcsD $WORK_DIR/$ANDROID_ARCH/libv8_snapshot.a $OUT_DIR/obj/v8_snapshot/*.o
 }
 
 ANDROID_ARCH=armeabi
