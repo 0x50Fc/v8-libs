@@ -73,7 +73,7 @@ ANDROID_ARCH=armeabi-v7a
 OUT_DIR=out.gn/$ANDROID_ARCH
 TARGET_CPU=arm
 ARM_VERSION=7
-#build_v8
+build_v8
 
 ANDROID_ARCH=arm64-v8a
 OUT_DIR=out.gn/$ANDROID_ARCH
@@ -85,4 +85,4 @@ ANDROID_ARCH=x86
 OUT_DIR=out.gn/$ANDROID_ARCH
 TARGET_CPU=x86
 ARM_VERSION=
-#build_v8
+build_v8
