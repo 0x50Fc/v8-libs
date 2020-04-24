@@ -40,6 +40,7 @@ build_v8()
     v8_enable_disassembler = true \
     v8_enable_object_print = true \
     v8_enable_verify_heap = true \
+    v8_enable_i18n_support = false \
     v8_use_external_startup_data = false \
     v8_static_library = true \
     android_ndk_version = \"r16\" \
@@ -62,8 +63,8 @@ build_v8()
     $AR -rcsD $WORK_DIR/$ANDROID_ARCH/libv8_base.a $OUT_DIR/obj/v8_libplatform/*.o
     $AR -rcsD $WORK_DIR/$ANDROID_ARCH/libv8_base.a $OUT_DIR/obj/src/inspector/inspector/*.o
     $AR -rcsD $WORK_DIR/$ANDROID_ARCH/libv8_base.a $OUT_DIR/obj/third_party/icu/icuuc/*.o
-    $AR -rcsD $WORK_DIR/$ANDROID_ARCH/libv8_base.a $OUT_DIR/obj/third_party/icu/icui18n/*.o
-
+    # $AR -rcsD $WORK_DIR/$ANDROID_ARCH/libv8_base.a $OUT_DIR/obj/third_party/icu/icui18n/*.o
+    $AR -rcsD $WORK_DIR/$ANDROID_ARCH/libv8_snapshot.a $OUT_DIR/obj/v8_snapshot/*.o
 }
 
 ANDROID_ARCH=armeabi
