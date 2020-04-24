@@ -51,7 +51,6 @@ build_v8()
     cp $OUT_DIR/obj/libv8_libbase.a $WORK_DIR/$ANDROID_ARCH/libv8_libbase.a
     cp $OUT_DIR/obj/libv8_libplatform.a $WORK_DIR/$ANDROID_ARCH/libv8_libplatform.a
 
-    cp -r include/* $WORK_DIR/$ANDROID_ARCH/include
 }
 
 ANDROID_ARCH=armeabi
@@ -59,6 +58,10 @@ OUT_DIR=out.gn/$ANDROID_ARCH
 TARGET_CPU=arm
 ARM_VERSION=6
 build_v8
+
+rm -rf $WORK_DIR/include
+mkdir $WORK_DIR/include
+cp -r include/* $WORK_DIR/include
 
 ANDROID_ARCH=armeabi-v7a
 OUT_DIR=out.gn/$ANDROID_ARCH
