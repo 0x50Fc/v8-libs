@@ -11,9 +11,6 @@ rm -rf out.gn/armeabi-v7a
 rm -rf out.gn/arm64-v8a
 rm -rf out.gn/x86
 
-rm -rf dist-android
-mkdir dist-android
-
 ANDROID_NDK_ROOT=`pwd`/third_party/android_ndk
 
 build_v8()
@@ -48,53 +45,35 @@ build_v8()
     # gn args $OUT_DIR --list
     ninja -C $OUT_DIR d8 -v # -j1
 
+    rm -rf $WORK_DIR/$ANDROID_ARCH
+    mkdir $WORK_DIR/$ANDROID_ARCH
 
-    rm -rf $OUT_DIR/libs
-    mkdir $OUT_DIR/libs
-    pushd $OUT_DIR/libs
-    $AR rcsD libv8_base.a ../obj/v8_base/*.o
-    $AR rcsD libv8_libbase.a ../obj/v8_libbase/*.o
-    $AR rcsD libv8_libsampler.a ../obj/v8_libsampler/*.o
-    $AR rcsD libv8_libplatform.a ../obj/v8_libplatform/*.o
-    $AR rcsD libv8_nosnapshot.a ../obj/v8_nosnapshot/*.o
-    # added other 3 needed
-    $AR rcsD libv8_builtins_generators.a ../obj/v8_builtins_generators/*.o
-    $AR rcsD libv8_builtins_setup.a ../obj/v8_builtins_setup/*.o
-    $AR rcsD libinspector.a ../obj/src/inspector/inspector/*.o
-    # no strip cmd in $CLANG_BASE/bin
-    # $STRIP --strip-unneeded libv8_base.a
-    # $STRIP --strip-unneeded libv8_libbase.a
-    # $STRIP --strip-unneeded libv8_libsampler.a
-    # $STRIP --strip-unneeded libv8_libplatform.a
-    # $STRIP --strip-unneeded libv8_nosnapshot.a
-    popd
+    cp $OUT_DIR/obj/libv8_libbase.a $WORK_DIR/$ANDROID_ARCH/libv8_libbase.a
+    cp $OUT_DIR/obj/libv8_libplatform.a $WORK_DIR/$ANDROID_ARCH/libv8_libplatform.a
 
-    mkdir -p dist-android/$ANDROID_ARCH/include
-    mkdir -p dist-android/$ANDROID_ARCH/libs
-    cp -r include/* dist-android/$ANDROID_ARCH/include
-    cp $OUT_DIR/libs/lib*.a dist-android/$ANDROID_ARCH/libs
+    cp -r include/* $WORK_DIR/$ANDROID_ARCH/include
 }
 
 ANDROID_ARCH=armeabi
-OUT_DIR=$WORK_DIR/$ANDROID_ARCH
+OUT_DIR=out.gn/$ANDROID_ARCH
 TARGET_CPU=arm
 ARM_VERSION=6
 build_v8
 
 ANDROID_ARCH=armeabi-v7a
-OUT_DIR=$WORK_DIR/$ANDROID_ARCH
+OUT_DIR=out.gn/$ANDROID_ARCH
 TARGET_CPU=arm
 ARM_VERSION=7
 build_v8
 
 ANDROID_ARCH=arm64-v8a
-OUT_DIR=$WORK_DIR/$ANDROID_ARCH
+OUT_DIR=out.gn/$ANDROID_ARCH
 TARGET_CPU=arm64
 ARM_VERSION=8
 build_v8
 
 ANDROID_ARCH=x86
-OUT_DIR=$WORK_DIR/$ANDROID_ARCH
+OUT_DIR=out.gn/$ANDROID_ARCH
 TARGET_CPU=x86
 ARM_VERSION=
 build_v8
