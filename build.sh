@@ -2,7 +2,9 @@
 
 set -e
 
-cd v8
+WORK_DIR=`pwd`
+
+cd ../v8
 
 rm -rf out.gn/armeabi
 rm -rf out.gn/armeabi-v7a
@@ -74,25 +76,25 @@ build_v8()
 }
 
 ANDROID_ARCH=armeabi
-OUT_DIR=out.gn/$ANDROID_ARCH
+OUT_DIR=$WORK_DIR/$ANDROID_ARCH
 TARGET_CPU=arm
 ARM_VERSION=6
 build_v8
 
 ANDROID_ARCH=armeabi-v7a
-OUT_DIR=out.gn/$ANDROID_ARCH
+OUT_DIR=$WORK_DIR/$ANDROID_ARCH
 TARGET_CPU=arm
 ARM_VERSION=7
 build_v8
 
 ANDROID_ARCH=arm64-v8a
-OUT_DIR=out.gn/$ANDROID_ARCH
+OUT_DIR=$WORK_DIR/$ANDROID_ARCH
 TARGET_CPU=arm64
 ARM_VERSION=8
 build_v8
 
 ANDROID_ARCH=x86
-OUT_DIR=out.gn/$ANDROID_ARCH
+OUT_DIR=$WORK_DIR/$ANDROID_ARCH
 TARGET_CPU=x86
 ARM_VERSION=
 build_v8
