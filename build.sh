@@ -29,6 +29,8 @@ build_v8()
 
     ARGS="is_component_build = false \
     is_debug = false \
+    symbol_level = 1 \
+    v8_android_log_stdout = true \
     target_cpu = \"$TARGET_CPU\" \
     v8_target_cpu = \"$TARGET_CPU\" \
     target_os = \"android\" \
@@ -41,10 +43,10 @@ build_v8()
     v8_enable_i18n_support = false \
     v8_use_external_startup_data = false \
     v8_static_library = true \
-    libcxx_is_shared = true \
-    libcxx_abi_unstable = false \
     android_ndk_version = \"r16\" \
     android_ndk_major_version = 16 \
+    use_custom_libcxx = false \
+    use_custom_libcxx_for_host = false \
     $ARM_VERSION_CONFIG \
     "
 
@@ -55,7 +57,14 @@ build_v8()
     rm -rf $WORK_DIR/$ANDROID_ARCH
     mkdir $WORK_DIR/$ANDROID_ARCH
 
-    cp -r $OUT_DIR/obj/*.a $WORK_DIR/$ANDROID_ARCH/
+    $AR -rcsD $WORK_DIR/$ANDROID_ARCH/libv8_base.a $OUT_DIR/obj/v8_base/*.o
+    $AR -rcsD $WORK_DIR/$ANDROID_ARCH/libv8_base.a $OUT_DIR/obj/v8_libbase/*.o
+    $AR -rcsD $WORK_DIR/$ANDROID_ARCH/libv8_base.a $OUT_DIR/obj/v8_libsampler/*.o
+    $AR -rcsD $WORK_DIR/$ANDROID_ARCH/libv8_base.a $OUT_DIR/obj/v8_libplatform/*.o
+    $AR -rcsD $WORK_DIR/$ANDROID_ARCH/libv8_base.a $OUT_DIR/obj/src/inspector/inspector/*.o
+    $AR -rcsD $WORK_DIR/$ANDROID_ARCH/libv8_base.a $OUT_DIR/obj/third_party/icu/icuuc/*.o
+    $AR -rcsD $WORK_DIR/$ANDROID_ARCH/libv8_base.a $OUT_DIR/obj/third_party/icu/icui18n/*.o
+
 }
 
 ANDROID_ARCH=armeabi
